@@ -13,7 +13,7 @@ struct QuotesRequest: DataRequest {
     let count: Int
 
     var url: String {
-        return Constants.baseURL + "quotes/\(count)/"
+        Constants.baseURL + "quotes/\(count)/"
     }
     
     var method: HTTPMethod {

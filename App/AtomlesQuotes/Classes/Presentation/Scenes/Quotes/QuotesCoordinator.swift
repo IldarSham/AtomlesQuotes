@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-protocol QuotesCoordinator: AnyObject {}
+protocol QuotesFlow: AnyObject {}
 
-class QuotesCoordinatorImplementation: Coordinator {
+class QuotesCoordinator: Coordinator {
     let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -30,4 +30,4 @@ class QuotesCoordinatorImplementation: Coordinator {
     }
 }
 
-extension QuotesCoordinatorImplementation: QuotesCoordinator {}
+extension QuotesCoordinator: QuotesFlow {}

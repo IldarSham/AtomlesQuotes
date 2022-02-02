@@ -17,8 +17,13 @@ class QuotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribeOnCustomViewActions()
-        setupNavigationItem()
         presenter?.onViewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+        setupNavigationItem()
     }
     
     // MARK: - Properties
@@ -26,17 +31,13 @@ class QuotesViewController: UIViewController {
 
     var presenter: QuotesPresenter?
     
-    var coordinator: QuotesCoordinator?
+    var coordinator: QuotesFlow?
     
     // MARK: - Methods
     func subscribeOnCustomViewActions() {
         customView.didPressRefreshButton = { [unowned self] in
             presenter?.refresh()
         }
-    }
-    
-    func setupNavigationItem() {
-        navigationItem.title = "AtomlesQuotes"
     }
 }
 
@@ -63,5 +64,21 @@ extension QuotesViewController: QuotesViewProtocol {
     func stopRefresh() {
         customView.refreshButton.isHidden = false
         customView.activityIndicator.stopAnimating()
+    }
+}
+
+// MARK: - Setup UI
+extension QuotesViewController {
+    
+    func setupNavigationBar() {
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            self.navigationController?.navigationBar.standardAppearance = appearance
+            self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        }
+    }
+    
+    func setupNavigationItem() {
+        self.navigationItem.title = "AtomlesQuotes"
     }
 }
